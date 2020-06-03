@@ -695,3 +695,57 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "s3-selected-bucket"
   }
 }
+
+git init : git 생성하기
+git clone git_path : 코드가져오기
+git checkout branch_name : 브랜치 선택하기
+git checkout -t remote_path/branch_name : 원격 브랜치 선택하기
+git branch branch_name : 브랜치 생성하기
+git branch -r : 원격 브랜치 목록보기
+git branch -a : 로컬 브랜치 목록보기
+git branch -m branch_name change_branch_name : 브랜치 이름 바꾸기
+git branch -d branch_name : 브랜치 삭제하기
+git push remote_name — delete branch_name : 원격 브랜치 삭제하기 ( git push origin — delete gh-pages )
+git add file_path : 수정한 코드 선택하기 ( git add * )
+git commit -m “commit_description” : 선택한 코드 설명 적기 ( git commit -m “내용”)
+git push romote_name branch_name : add하고 commit한 코드 git server에 보내기 (git push origin master)
+git pull : git서버에서 최신 코드 받아와 merge 하기
+git fetch : git서버에서 최신 코드 받아오기
+git reset — hard HEAD^ : commit한 이전 코드 취소하기
+git reset — soft HEAD^ : 코드는 살리고 commit만 취소하기
+git reset — merge : merge 취소하기
+git reset — hard HEAD && git pull : git 코드 강제로 모두 받아오기
+git config — global user.name “user_name ” : git 계정Name 변경하기
+git config — global user.email “user_email” : git 계정Mail변경하기
+git stash / git stash save “description” : 작업코드 임시저장하고 브랜치 바꾸기
+git stash pop : 마지막으로 임시저장한 작업코드 가져오기
+git branch — set-upstream-to=remote_path/branch_name : git pull no tracking info 에러해결
+ 
+ Github에서 angular를 받아오고 싶다면, 아래 명령어로 받아 올 수 있습니다.
+ git pull // 코드를 받아와 변경점을 merge한다.
+git fetch // 코드를 받아온다.
+git clone https://github.com/angular/angular.git
+
+Commit 취소하기
+git은 코드의 상태를 uncommit / staying / commit 으로 나눠 볼수 있습니다.
+코드 파일의 내용을 바꾸면 uncommit이 됩니다.
+파일의 변경 내역 add 하면 index에 추가되고 staying이 됩니다.
+변경 내용을 commit으로 확정지을 수 있씁니다.
+commit 이 완료되면 서버에 push할 수 있게 됩니다.
+코드를 작성하다보면 잘못된 코드를 추가하거나 merge 할 수 있습니다. 이를 취소하고싶다면, git reset 으로 취소 할 수 있습니다.
+git reset // add 한 파일 취소
+git reset — -merge // merge 한 코드 취소
+만약 commit한 코드를 취소하고 이전코드로 돌아가고 싶다면, git reset HEAD^ 명령어를 이용하여 바로 직전에 commit한 코드로 되돌아 갈 있습니다.
+하지만 이경우 작성하고 수정했던 코드는 모두 사라지게 됩니다. 만약 commit만 취소하고, 작성한 코드는 살리고 싶다면 어떻게 해야할까요? reset 명령어의 옵션중에 soft를 이용하면 됩니다.
+git reset — soft HEAD^ //commit 코드 살리기
+git reset — hard HEAD^ //commit하기 이전의 코드로 돌아가기
+git reset을 이용하여 작성한 코드를 초기화하고 서버로부터 다시 받아 올 수 도 있습니다.
+git reset — hard HEAD // HEAD를 기준으로 이전코드로 돌아갑니다.
+git pull // git 서버에서 코드를 다시 받아옵니다.
+코드 잠깐 저장하고, 다른 브랜치로 이동하기
+A라는 Branch에서 작업을 하던중 급하게 들어온 요청 혹은 Bug가있어 B 브랜치로 이동해야할 일이 생겼습니다. 그런데 작업은 완료되지 않아서 commit 해두기에는 애매하고, 그렇다고 다시 작업하기에는 작업량이 있어 버릴수는 없는경우에 어떻게 해야할까요?
+그럴 경우 잠깐 다른 공간에 변경 내역을 기록해 두고 브랜치를 변경해서 작업한후 다시 돌아와서 변경 내역을 불러와 계속 작업을 이어 나갈 수 있습니다.
+git stash // 코드를 stash 영역에 잠시 저장하기
+stash 명령어를 이용하여 stash 영역에 코드를 잠깐 저장해두고 다시 돌아와 작업을 이어나갈수 있게 되었습니다. 해당 구조는 스택구조로 이루어져있기때문에 LIFO으로 작업을 불러올수 있습니다.
+git stash pop // 마지막에 저장한 코드 불러오기
+stash 영역이 기억이 나지 않는다면 git stash list로 목록도 확인해 볼수 있습니다.
